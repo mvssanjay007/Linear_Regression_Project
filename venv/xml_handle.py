@@ -20,10 +20,12 @@ class xml_handling:
         print(o)
         return np.asarray(o),x
 
-    def get_xml(self,channel_number,field_number,file_name):
+    def get_xml(self,channel_number,field_number,file_name,delay):
         import requests,os
         f = open(str(file_name), 'w')
         x = requests.get(f'https://api.thingspeak.com/channels/{channel_number}/fields/{field_number}.xml?timezone=Asia%2FKolkata')
         f.write(x.content.decode())
         f.close()
-        return os.path(str(file_name))
+        time.sleep(delay)
+
+        return os.path.abspath(str(file_name))
